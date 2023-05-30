@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/blankFragment">
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.internship.person.ui.PersonFragment"
+        android:label="abel_blank"
+        tools:layout="@layout/fragment_person" >
+        <action
+            android:id="@+id/displayPersonFragment"
+            app:destination="@id/displayPersonFragment" />
+        <action
+            android:id="@+id/addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayPersonFragment"
+        android:name="com.example.internship.person.ui.DisplayPersonFragment"
+        android:label="fragment_display_person"
+        tools:layout="@layout/fragment_display_person" >
+        <argument
+            android:name="model"
+            app:argType="com.example.internship.person.data.Person" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.internship.person.ui.AddPersonFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_add_person" >
+    </fragment>
+</navigation>
