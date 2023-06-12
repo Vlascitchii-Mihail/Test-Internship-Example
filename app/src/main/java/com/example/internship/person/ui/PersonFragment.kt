@@ -1,7 +1,6 @@
 package com.example.internship.person.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,13 +59,11 @@ class PersonFragment : Fragment() {
         }
         viewModel.getFullStaff(isNetwork = true)
     }
-    private  val TAG = "PersonFragment"
 
     private fun observeData(){
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.allPerson.collectLatest {
-                    Log.d(TAG, "observeData: ")
                     binding.personList.adapter = personAdapter
                     personAdapter.submitList(it)
                 }

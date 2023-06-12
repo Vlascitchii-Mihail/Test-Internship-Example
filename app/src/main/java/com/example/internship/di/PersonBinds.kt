@@ -29,5 +29,5 @@ abstract class PersonBinds {
 
     @Binds
     @Singleton
-    abstract fun bindsMyDefaultDispatchers(impl: DefaultDispatchers): DispatcherProvider
+    abstract fun bindsDefaultDispatchers(impl: DefaultDispatchers): DispatcherProvider
 }

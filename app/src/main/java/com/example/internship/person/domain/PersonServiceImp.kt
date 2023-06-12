@@ -20,11 +20,6 @@ class PersonServiceImp @Inject constructor(): PersonService {
         emit(bank)
     }
 
-//    override fun getFullStaff() = flow<Nothing> {
-//        delay(2_000)
-//        throw Exception("No data")
-//    }
-
     override suspend fun addPerson(person: Person){
         delay(2_000L)
         bank.add(person)

@@ -5,15 +5,11 @@ import app.cash.turbine.test
 import com.example.internship.person.TestDispatchers
 import com.example.internship.person.data.Person
 import com.example.internship.person.utility.CustomLogger
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -95,7 +91,7 @@ class PersonRepositoryImpTest {
             immutableRepository.addPerson(person)
             testDispatchers.testDispatcher.scheduler.advanceUntilIdle()
 
-            verify(exactly = 1) { runBlocking { service.addPerson(person) } }
+            coVerify(exactly = 1) { service.addPerson(person) }
             assertEquals(Unit, immutableRepository.showProgress.value)
             assertEquals(Unit, immutableRepository.hideProgress.value)
         }
@@ -106,7 +102,7 @@ class PersonRepositoryImpTest {
         val immutableRepository = requireNotNull(repository)
         val person = mockk<Person>(relaxed = true)
         val error = Exception("network error")
-        every { runBlocking { service.addPerson(person) } } throws error
+        coEvery { service.addPerson(person) } throws error
 
         runTest {
             immutableRepository.addPerson(person)

@@ -12,7 +12,6 @@ import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -57,11 +56,11 @@ class PersonViewModelTest {
         viewModel.getFullStaff(isNetwork = true)
         testDispatchers.testDispatcher.scheduler.advanceUntilIdle()
 
-        verify(exactly = 1) { runBlocking { personRepository.getFullStaff() } }
+        coVerify(exactly = 1) { personRepository.getFullStaff() }
     }
 
     @Test
-    fun `show network error message when network isn't available on view created`() {
+    fun `show network error  when network isn't available on view created`() {
         viewModel.getFullStaff(isNetwork = false)
 
         assertEquals(Unit, viewModel.showErrorInternetConnection.value)
@@ -83,7 +82,7 @@ class PersonViewModelTest {
             viewModel.addPerson(person = newPerson, isNetwork = isNetwork)
             testDispatchers.testDispatcher.scheduler.advanceUntilIdle()
 
-            verify(exactly = 1) { runBlocking { personRepository.addPerson(newPerson) } }
+            coVerify(exactly = 1) { personRepository.addPerson(newPerson) }
         }
     }
 
@@ -150,7 +149,7 @@ class PersonViewModelTest {
             viewModel.addPerson(person = newPerson, isNetwork = isNetwork)
             testDispatchers.testDispatcher.scheduler.advanceUntilIdle()
 
-            verify(exactly = 1) { runBlocking { personRepository.addPerson(newPerson) } }
+            coVerify(exactly = 1) { personRepository.addPerson(newPerson) }
         }
     }
 }
